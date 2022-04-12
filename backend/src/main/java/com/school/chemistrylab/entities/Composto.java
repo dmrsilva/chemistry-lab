@@ -29,10 +29,17 @@ public class Composto implements Serializable {
 	public Composto() {
 	}
 
+	public Composto(Long id, String name, String description) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+	
 	public Composto(Long id, String name, String description, Produto product) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.product = product;
 	}
 
 	public Long getId() {
