@@ -24,7 +24,7 @@ public class Produto implements Serializable {
 	private String description;
 	
 	@OneToMany(mappedBy = "product")
-	Set<Composto> compounds = new HashSet<>();
+	Set<Composto> compostos = new HashSet<>();
 	
 	public Produto() {
 	}
@@ -59,8 +59,8 @@ public class Produto implements Serializable {
 		this.description = description;
 	}
 
-	public Set<Composto> getCompounds() {
-		return compounds;
+	public Set<Composto> getCompostos() {
+		return compostos;
 	}
 
 	@Override
