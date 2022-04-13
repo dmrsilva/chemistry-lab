@@ -1,5 +1,6 @@
 package com.school.chemistrylab.tests;
 
+import com.school.chemistrylab.dto.CompostoDTO;
 import com.school.chemistrylab.entities.Composto;
 import com.school.chemistrylab.entities.Produto;
 
@@ -16,5 +17,8 @@ public class Factory {
 		return produto;
 	}
 	
+	public static CompostoDTO createCompostoDTO() {
+		return new CompostoDTO(createComposto());
+	}	
 
 }
