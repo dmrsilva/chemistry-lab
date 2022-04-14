@@ -1,9 +1,9 @@
 package com.school.chemistrylab.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +24,7 @@ public class Produto implements Serializable {
 	private String description;
 	
 	@OneToMany(mappedBy = "produto")
-	Set<Composto> compostos = new HashSet<>();
+	List<Composto> compostos = new ArrayList<>();
 	
 	public Produto() {
 	}
@@ -59,7 +59,7 @@ public class Produto implements Serializable {
 		this.description = description;
 	}
 
-	public Set<Composto> getCompostos() {
+	public List<Composto> getCompostos() {
 		return compostos;
 	}
 

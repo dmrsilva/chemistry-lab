@@ -1,4 +1,4 @@
-INSERT INTO tb_produto (name, description) VALUES ('Detergente em Pó', 'São substâncias químicas que apresentam cadeias muito longas constituídas apenas por átomos de carbono e hidrogênio.');
+INSERT INTO tb_produto (name, description) VALUES ('Detergente em Pó', 'Substância química que apresentam cadeias constituídas por átomos de carbono e hidrogênio.');
 INSERT INTO tb_produto (name, description) VALUES ('Refrigerante', 'Bebida carbonatada e não alcoólica.');
 
 INSERT INTO tb_composto (name, description, produto_id) VALUES ('Tensoativo aniônico', 'Ele age por oxidação, redução ou ação enzimática.', 1);

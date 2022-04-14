@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import com.school.chemistrylab.entities.Composto;
 import com.school.chemistrylab.entities.Produto;
 import com.school.chemistrylab.repositories.CompostoRepository;
 import com.school.chemistrylab.repositories.ProdutoRepository;
+import com.school.chemistrylab.services.exceptions.DatabaseException;
 import com.school.chemistrylab.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -25,6 +27,7 @@ public class ProdutoService {
 	@Autowired
 	ProdutoRepository repository;	
 	
+	@Autowired
 	CompostoRepository compostoRepository;
 	
 	@Transactional
@@ -48,17 +51,6 @@ public class ProdutoService {
 		}
 	}
 
-	@Transactional
-	public void delete(Long id) {
-		try {
-			repository.deleteById(id);
-		}
-		catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Id not found " + id);
-		}
-		
-	}
-
 	@Transactional(readOnly = true)
 	public ProdutoDTO findById(Long id) {
 		Optional<Produto> obj = repository.findById(id);
@@ -68,8 +60,21 @@ public class ProdutoService {
 
 	@Transactional(readOnly = true)
 	public List<ProdutoDTO> findAll() {
-		List<Produto> list = repository.findAll();
-		return list.stream().map(x -> new ProdutoDTO(x)).collect(Collectors.toList());
+		List<Produto> produtos = repository.findAll();
+		return produtos.stream().map(x -> new ProdutoDTO(x)).collect(Collectors.toList());
+	}
+	
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		}
+		catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		}
+
 	}
 	
 	private void copyDtoToEntity(ProdutoDTO dto, Produto entity) {
@@ -77,8 +82,8 @@ public class ProdutoService {
 		entity.setName(dto.getName());
 		entity.setDescription(dto.getDescription());
 		
-		for (CompostoDTO compDto : dto.getList()) {
-			Composto composto = compostoRepository.getById(compDto.getId());
+		for (CompostoDTO compostoDTO : dto.getCompostos()) {
+			Composto composto = compostoRepository.getById(compostoDTO.getId());
 			entity.getCompostos().add(composto);
 		}
 		

@@ -3,6 +3,7 @@ package com.school.chemistrylab.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.school.chemistrylab.entities.Composto;
 import com.school.chemistrylab.entities.Produto;
 
 public class ProdutoDTO {
@@ -11,7 +12,7 @@ public class ProdutoDTO {
 	private String name;
 	private String description;
 	
-	private List<CompostoDTO> list = new ArrayList<>();
+	private List<CompostoDTO> compostos = new ArrayList<>();
 
 	public ProdutoDTO() {
 	}
@@ -26,6 +27,11 @@ public class ProdutoDTO {
 		id = produto.getId();
 		name = produto.getName();
 		description = produto.getDescription();
+	}
+	
+	public ProdutoDTO(Produto produto, List<Composto> compostos) {
+		this(produto);
+		compostos.forEach(composto -> this.compostos.add(new CompostoDTO(composto)));
 	}
 	
 	public Long getId() {
@@ -52,8 +58,8 @@ public class ProdutoDTO {
 		this.description = description;
 	}
 
-	public List<CompostoDTO> getList() {
-		return list;
+	public List<CompostoDTO> getCompostos() {
+		return compostos;
 	}
 	
 }
