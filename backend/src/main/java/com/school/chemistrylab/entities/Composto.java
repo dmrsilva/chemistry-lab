@@ -23,8 +23,8 @@ public class Composto implements Serializable {
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name = "product_id")
-	private Produto product;
+	@JoinColumn(name = "produto_id")
+	private Produto produto;
 	
 	public Composto() {
 	}
@@ -35,11 +35,11 @@ public class Composto implements Serializable {
 		this.description = description;
 	}
 	
-	public Composto(Long id, String name, String description, Produto product) {
+	public Composto(Long id, String name, String description, Produto produto) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.product = product;
+		this.produto = produto;
 	}
 
 	public Long getId() {
@@ -66,12 +66,12 @@ public class Composto implements Serializable {
 		this.description = description;
 	}
 
-	public Produto getProduct() {
-		return product;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setProduct(Produto product) {
-		this.product = product;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	@Override

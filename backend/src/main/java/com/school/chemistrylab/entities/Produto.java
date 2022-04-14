@@ -23,7 +23,7 @@ public class Produto implements Serializable {
 	private String name;
 	private String description;
 	
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "produto")
 	Set<Composto> compostos = new HashSet<>();
 	
 	public Produto() {
