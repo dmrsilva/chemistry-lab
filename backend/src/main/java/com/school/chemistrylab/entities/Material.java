@@ -1,8 +1,6 @@
 package com.school.chemistrylab.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -11,14 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_produto")
-public class Produto implements Serializable {
+@Table(name = "tb_material")
+public class Material implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,13 +26,10 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 	
-	@OneToMany(mappedBy = "produto")
-	List<Composto> compostos = new ArrayList<>();
-	
-	public Produto() {
+	public Material() {
 	}
 
-	public Produto(Long id, String name, String description) {
+	public Material(Long id, String name, String description) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -65,10 +59,6 @@ public class Produto implements Serializable {
 		this.description = description;
 	}
 
-	public List<Composto> getCompostos() {
-		return compostos;
-	}
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -90,7 +80,7 @@ public class Produto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
+		Material other = (Material) obj;
 		return Objects.equals(id, other.id);
 	}
 

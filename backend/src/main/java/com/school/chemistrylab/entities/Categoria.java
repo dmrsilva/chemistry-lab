@@ -9,36 +9,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_produto")
-public class Produto implements Serializable {
+@Table(name = "tb_categoria")
+public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String description;
 	
-	@ManyToOne
-	@JoinColumn(name = "categoria_id")
-	private Categoria categoria;
+	@OneToMany(mappedBy = "categoria")
+	List<Material> materiais = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "produto")
-	List<Composto> compostos = new ArrayList<>();
+	@OneToMany(mappedBy = "categoria")
+	List<Produto> produtos = new ArrayList<>();
 	
-	public Produto() {
+	public Categoria() {
 	}
 
-	public Produto(Long id, String name, String description) {
+	public Categoria(Long id, String name) {
 		this.id = id;
 		this.name = name;
-		this.description = description;
 	}
 
 	public Long getId() {
@@ -57,24 +52,12 @@ public class Produto implements Serializable {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public List<Material> getMateriais() {
+		return materiais;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public List<Composto> getCompostos() {
-		return compostos;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public List<Produto> getProdutos() {
+		return produtos;
 	}
 
 	@Override
@@ -90,7 +73,7 @@ public class Produto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
+		Categoria other = (Categoria) obj;
 		return Objects.equals(id, other.id);
 	}
 
