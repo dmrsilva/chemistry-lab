@@ -1,6 +1,8 @@
 package com.school.chemistrylab.tests;
 
+import com.school.chemistrylab.dto.CategoriaDTO;
 import com.school.chemistrylab.dto.CompostoDTO;
+import com.school.chemistrylab.dto.MaterialDTO;
 import com.school.chemistrylab.dto.ProdutoDTO;
 import com.school.chemistrylab.entities.Categoria;
 import com.school.chemistrylab.entities.Composto;
@@ -38,6 +40,14 @@ public class Factory {
 	
 	public static ProdutoDTO createProdutoDTO() {
 		return new ProdutoDTO(createProduto());
+	}
+	
+	public static MaterialDTO createMaterialDTO() {
+		return new MaterialDTO(createMaterial());
+	}
+	
+	public static CategoriaDTO createCategoriaDTO() {
+		return new CategoriaDTO(createCategoria());
 	}
 
 }
